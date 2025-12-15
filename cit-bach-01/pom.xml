@@ -40,7 +40,14 @@
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+    	<groupId>org.bitbucket.vahidi</groupId>
+    	<artifactId>JDD</artifactId>
+    	<version>112</version>
+    </dependency>
   </dependencies>
+      
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
