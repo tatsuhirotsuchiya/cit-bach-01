@@ -4,7 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>jp.ac.osaka-u</groupId>
-  <artifactId>cit-bach-01</artifactId>
+  <artifactId>cit-bach-01</artifactId>	
+<!--   <groupId>jp.ac.osaka_u</groupId>
+  <artifactId>cit_bach_01</artifactId>
+  -->
   <version>0.0.1-SNAPSHOT</version>
 
   <name>cit-bach-01</name>
@@ -12,6 +15,7 @@
   <url>http://www.example.com</url>
 
   <properties>
+<jdd104-systemPath>C:\Users\tatsu\git\cit-bach-01\cit-bach-01/lib/jdd_104.jar</jdd104-systemPath>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
   </properties>
@@ -25,8 +29,25 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+          
+      
     </dependencies>
   </dependencyManagement>
+
+<!--
+  <repositories>
+    <repository>
+      <id>bitbucket-repo</id>
+      <url>https://bitbucket.org/vahidi/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+-->
 
   <dependencies>
     <dependency>
@@ -41,12 +62,15 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-    	<groupId>org.bitbucket.vahidi</groupId>
-    	<artifactId>JDD</artifactId>
-    	<version>112</version>
-    </dependency>
-  </dependencies>
+<dependency>
+  <groupId>jp.ac.osaka-u</groupId>
+  <artifactId>jdd_104</artifactId>
+  <version>104</version>
+  <scope>system</scope>
+  <systemPath>${jdd104-systemPath}</systemPath>
+</dependency>
+
+ </dependencies>
       
 
   <build>
