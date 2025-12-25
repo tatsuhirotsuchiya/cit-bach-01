@@ -39,25 +39,22 @@ public class Main {
 			Error.setOutputFile(outputFile);
 
 			// コマンド引数でのエラー出力
-			if (errorMessage != null)
+			if (errorMessage != null) {
 				Error.printError(errorMessage);
-
+			}
+			
 			// モデル読み込み
 			// System.err.println("starting reading model");
 			InputFileData inputfiledata = Inputer.readModel(modelFile);
 
 			// 制約処理 BDD作成
 			// System.err.println("starting building bdd");
-
-			// old version where all parameters are considered in BDD
-			//			ConstraintHandler conhndl = new ConstraintHandler(
-			//					inputfiledata.parameterList, inputfiledata.constraintList);
-
-			// newer version
-			ConstraintHandler conhndl = new ConstraintHandler(
+						ConstraintHandler conhndl = new ConstraintHandler(
 					inputfiledata.parameterList, inputfiledata.constraintList, inputfiledata.constrainedParameters);
 			// DEBUG: BDDの表示
-			/* conhndl.printConstraintBDD(); */
+			if (debugMode) {
+				conhndl.printConstraintBDD();
+			}
 
 			// 　シード読み込み
 			List<Testcase> seed = Inputer.readSeed(seedFile, inputfiledata);
@@ -90,8 +87,11 @@ public class Main {
 					testSet = null;
 				}
 
-				if (debugMode)
+				if (debugMode) {
 					System.err.println("random seed: " + randomSeed);
+				}
+				
+				// repeat test suite generation when numOfIterations >= 2
 				// 繰り返す場合
 				for (int i = 2; i < numOfIterations; i++) {
 					int nextRandomSeed = (int) Math.floor(Math.random()
@@ -101,9 +101,10 @@ public class Main {
 							inputfiledata.groupList, conhndl, seed,
 							nextRandomSeed, strength);
 
-					if (debugMode)
+					if (debugMode) {
 						System.err.println("random seed: " + nextRandomSeed);
-
+					}
+					
 					List<Testcase> nextTestSet = null;
 					try {
 						nextTestSet = generator.generate();
@@ -121,12 +122,13 @@ public class Main {
 						randomSeed = nextRandomSeed;
 					}
 				}
-				if (testSet == null)
+				if (testSet == null) {
 					Error.printError(Main.language == Main.Language.JP ? "テストケース数が上限"
 							+ Generator.MaxNumOfTestcases + "を超えました"
 							: "The number of test cases exceeded the upper bound "
 							+ Generator.MaxNumOfTestcases);
-
+				}
+				
 				new Outputer(outputFile).outputResult(testSet, inputfiledata,
 						randomSeed, modelFile, seedFile, outputFile, strength,
 						numOfIterations);
@@ -270,4 +272,3 @@ public class Main {
 		return errorMessage;
 	}
 }
-
